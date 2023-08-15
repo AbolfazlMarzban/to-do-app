@@ -10,7 +10,7 @@ module.exports = {
 
   target: "web",
   devServer: {
-    port: "3000",
+    port: "4000",
     static: ["./public"],
     open: true,
     hot: true,
