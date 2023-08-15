@@ -2,7 +2,7 @@
   "name": "react-app",
   "version": "1.0.0",
   "description": "",
-  "main": "./src/index.js",
+  "main": "./src/index.jsx",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server .",
@@ -23,13 +23,18 @@
     "@babel/runtime": "^7.17.8",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.4",
+    "sass": "^1.65.1",
     "tailwindcss": "^3.3.3",
     "webpack": "^5.71.0",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.8.0"
   },
   "dependencies": {
+    "css-loader": "^6.8.1",
+    "postcss-loader": "^7.3.3",
     "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react-dom": "^18.0.0",
+    "sass-loader": "^13.3.2",
+    "style-loader": "^3.3.3"
   }
 }

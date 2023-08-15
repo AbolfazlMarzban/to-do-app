@@ -36,6 +36,15 @@ resolve: {
         exclude: /node_modules/,
         use: "babel-loader",
       },
+      {
+        test: /\.(sass|css|scss)$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'postcss-loader',
+          'sass-loader'
+        ]
+      }
     ],
   },
 };
