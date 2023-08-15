@@ -44,6 +44,10 @@ resolve: {
           'postcss-loader',
           'sass-loader'
         ]
+      },
+      {
+        test: /\.(png|jpeg|jpg)$/,
+        use: 'url-loader'
       }
     ],
   },

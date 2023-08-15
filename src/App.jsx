@@ -1,5 +1,6 @@
 import './app.css'
 import React, { useState } from "react";
+import check from '../public/images/check.png'
 
 const App = () => {
   const [counter, setCounter] = useState(0);
@@ -8,14 +9,12 @@ const App = () => {
     setCounter(counter + 1);
   };
   return (
-    <div className="w-full text-center bg-red-300 text-white">
-      This was made from Scratch! Also hello world!
-      <button onClick={increment}>Increment</button>
-      {counter}
+    <div className="w-full py-16 px-32">
+      <div className='flex items-center'>
+        <img src={check} alt="" className='w-10 h-10' />
+        <h1 className='pl-3 text-4xl'>Task List</h1>
+      </div>
 
-      <p className='text-white'>whasssup bitch</p>
-      <span>sadasdadadasdasd</span>
-      <a>abolfazl ahmagh</a>
     </div>
 
   );
