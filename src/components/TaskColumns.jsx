@@ -1,5 +1,7 @@
 import React from "react";
 import { useState } from "react";
+import SingleTask from "./singleTask";
+
 export default function TaskColumns() {
   const [todo, setTodo] = useState([]);
   const [doing, setDoing] = useState([]);
@@ -19,6 +21,9 @@ export default function TaskColumns() {
           <span style={{ color: "#D4AFB4" }} className="text-xs">
             {todo.length} Tasks
           </span>
+        </div>
+        <div className="mt-5"> 
+        <SingleTask />
         </div>
         <div>
           <div className="w-full flex items-center p-2.5">
