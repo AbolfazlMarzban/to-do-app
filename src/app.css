@@ -10,3 +10,9 @@
 body{
     font-family: 'inter';
 }
+
+.taskbox{
+    background: white;
+    border: 1px solid #F3E1DF;
+
+}

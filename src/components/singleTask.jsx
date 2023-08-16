@@ -1,12 +1,49 @@
-import React from "react"
+import React from "react";
 
-export default function SingleTask(){
-    return (
-        // style={{'background': 'white', 'borderColor': '#F3E1DF'}}
-        <div className="w-full flex items-center p-3 min-h-max mb-3 border-1" >
-            <input type="checkbox" className="w-4 h-4"/>
-            {/* <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam facilis blanditiis laboriosam nam officia ea veritatis consequatur tempore itaque nostrum sed voluptatum nulla, esse ut at minima nobis autem id?</span> */}
-            <input type="text" name="" id="" />
+export default function SingleTask({
+  id,
+  checked,
+  text,
+  state,
+  clicked,
+  hovered,
+}) {
+  return (
+    <div className="w-full flex items-center p-3 min-h-max mb-3 taskbox">
+      <input type="checkbox" className="w-4 h-4" value={checked} />
+      {!clicked && <span className="ml-2.5 text-xs font-semibold">{text}</span>}
+      {clicked && <input type="text" name="" id="" value={text} />}
+      {hovered && (
+          <div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="17"
+            height="17"
+            viewBox="0 0 17 17"
+            fill="none"
+          >
+            <rect
+              x="12.1218"
+              y="3.63655"
+              width="1.71429"
+              height="12"
+              rx="0.857143"
+              transform="rotate(45 12.1218 3.63655)"
+              fill="#F4C5CB"
+            />
+            <rect
+              x="3.63656"
+              y="4.84873"
+              width="1.71429"
+              height="12"
+              rx="0.857143"
+              transform="rotate(-45 3.63656 4.84873)"
+              fill="#F4C5CB"
+            />
+          </svg>
         </div>
-    )
+      )}
+    
+    </div>
+  );
 }

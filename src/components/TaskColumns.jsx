@@ -1,12 +1,43 @@
 import React from "react";
-import { useState } from "react";
+import { useReducer } from "react";
 import SingleTask from "./singleTask";
 
 export default function TaskColumns() {
-  const [todo, setTodo] = useState([]);
-  const [doing, setDoing] = useState([]);
-  const [done, setDone] = useState([]);
+  // const [todo, setTodo] = useState([]);
+  const reducer = (state, action) =>{
+    switch (action.type){
+      case "Add":
+        return [...state, action.object]
+      case "click":
+        state.map((item, i) => {
+          if(i == action.i){
+          return {...item, clicked: !item.clicked}
+          } else{
+            return item
+          }
+        })
+        console.log('state', state)
+      default: 
+      return state;
+    }
+  }
+  const [todos, dispatch] = useReducer(reducer, [])
 
+  function newTodo(){
+    var obj = {
+      checked: false,
+      text: '',
+      state: 'todo',
+      clicked: false, 
+      hovered: false
+    }
+    dispatch({type : "Add", object: obj})
+  }
+  function setClicked(i){
+    console.log(i)
+    // dispatch({type: "clikc", i : i})
+    return true
+  }
   return (
     <div className="flex mt-12 h-full pb-16">
       <div className="basis-1/3 bg-todo rounded-xl m-2.5 p-5">
@@ -19,14 +50,18 @@ export default function TaskColumns() {
             Todo
           </label>
           <span style={{ color: "#D4AFB4" }} className="text-xs">
-            {todo.length} Tasks
+            {todos.length} Tasks
           </span>
         </div>
-        <div className="mt-5"> 
-        <SingleTask />
+        <div className="mt-5">
+
+        {todos.map((item,i) => (
+            <SingleTask key={i} onClick={setClicked(i)}  checked={item.checked} text={item.text} state={item.state} clicked={item.clicked} hovered={item.hovered}/>
+        ))}
         </div>
+    
         <div>
-          <div className="w-full flex items-center p-2.5">
+          <div className="w-full flex items-center p-2.5 cursor-pointer" onClick={() => newTodo()}>
             <svg
               className="mr-2.5"
               xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +100,7 @@ export default function TaskColumns() {
             Doing 💪
           </label>
           <span className="text-xs" style={{ color: "#DECCA4" }}>
-            {todo.length} Tasks
+            {todos.length} Tasks
           </span>
         </div>
         <div className="w-full flex items-center p-2.5">
@@ -106,7 +141,7 @@ export default function TaskColumns() {
             Done 🎉
           </label>
           <span className="text-xs" style={{ color: "#BCD7B6" }}>
-            {todo.length} Tasks
+            {todos.length} Tasks
           </span>
         </div>
       </div>
