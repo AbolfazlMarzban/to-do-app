@@ -46,8 +46,6 @@ export default function TaskColumns() {
   }
 
   const deleteTask = (state, id) => {
-    console.log("state", state);
-    console.log("id", id);
     if (state == "todo") {
       setTodos(todos.filter((item) => item.id !== id));
     }
@@ -84,6 +82,7 @@ export default function TaskColumns() {
     e.preventDefault();
     const item = dragged;
     const prevState = item.state;
+    console.log('item', item)
     if (item) {
       item.state = state;
       if(state == "todo"){
@@ -100,7 +99,7 @@ export default function TaskColumns() {
   };
   return (
     <div className="flex mt-12 h-full pb-16">
-      <div className="basis-1/3 bg-todo rounded-xl m-2.5 p-5">
+      <div className="basis-1/3 bg-todo rounded-xl m-2.5 p-5" onDragOver={(e) => draggedOver(e)} onDrop={(e) => getDropped("todo", e)}>
         <div className="flex justify-between items-center">
           <label
             htmlFor=""
@@ -115,8 +114,7 @@ export default function TaskColumns() {
         </div>
         <div
           className="mt-5"
-          onDragOver={(e) => draggedOver(e)}
-          onDrop={(e) => getDropped("todo", e)}
+   
         >
           {todos.map((item, index) => (
             <div draggable onDragStart={() => startDrag(item)} key={item.id}>
@@ -124,6 +122,7 @@ export default function TaskColumns() {
                 key={item.id}
                 index={index}
                 id={item.id}
+                itemText={item.text}
                 checked={item.completed}
                 state={item.state}
                 deleteTask={deleteTask}
