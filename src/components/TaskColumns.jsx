@@ -15,10 +15,14 @@ export default function TaskColumns() {
     setTodos([...todos, obj])
   }
 
-  const deleteTask =(index)=>{
-    const updatedTasks = [...todos]
-     updatedTasks.splice(index, 1)
+  const deleteTask = (index)=>{
+    const updatedTasks = todos.filter((_, i) => i !== index);
     setTodos(updatedTasks)
+  }
+  const sendText = (text,index) => {
+    const tasks = [...todos]
+    tasks[index].text = text
+    setTodos(tasks)
   }
 
   return (
@@ -37,17 +41,15 @@ export default function TaskColumns() {
           </span>
         </div>
         <div className="mt-5">
-          {todos.map((item, i) => (
-            <div  key={i}>
+          {todos.map((item, index) => (
               <SingleTask
-                index={i}
+                key={index}
+                index={index}
                 checked={item.completed}
-                text={item.text}
                 state={item.state}
                 deleteTask={deleteTask}
-
+                sendText={sendText}
               />
-            </div>
           ))}
         </div>
 

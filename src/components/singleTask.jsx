@@ -3,18 +3,18 @@ import { useState, useEffect } from "react";
 export default function SingleTask({
   index,
   checked,
-  taskText,
   state,
   parentCallback,
-  deleteTask
+  deleteTask,
+  sendText
 }) {    
     const [hovered, setHovered] = useState(false)
-    const [text, setText] = useState(taskText)
-    function sendText(event){
-        parentCallback(event.target.value, index)
+    const [text, setText] = useState('')
+
+     const sendTextToParent = (text) => {
+        setText(text)
+        sendText(text, index)
     }
-
-
   return (
     <div className="w-full flex items-center p-3 min-h-max mb-3 taskbox justify-between"
      onMouseEnter={() => setHovered(true)}
@@ -22,7 +22,7 @@ export default function SingleTask({
      >
         <div>
         <input type="checkbox" className="w-4 h-4" value={checked} />    
-        <input type="text" value={text} onChange={(event) => setText(event.target.value)} className="ml-2.5"/>
+        <input type="text" value={text} onChange={(event) => sendTextToParent(event.target.value)} className="ml-2.5"/>
         </div>
    
       {hovered && (
