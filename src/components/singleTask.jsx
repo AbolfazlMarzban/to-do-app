@@ -6,7 +6,8 @@ export default function SingleTask({
   state,
   parentCallback,
   deleteTask,
-  sendText
+  sendText,
+  id
 }) {    
     const [hovered, setHovered] = useState(false)
     const [text, setText] = useState('')
@@ -26,7 +27,7 @@ export default function SingleTask({
         </div>
    
       {hovered && (
-          <div onClick={() => deleteTask(index)} className="cursor-pointer">
+          <div onClick={() => deleteTask(id)} className="cursor-pointer">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="17"

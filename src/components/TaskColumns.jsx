@@ -7,7 +7,9 @@ export default function TaskColumns() {
 
 
   function newTodo() {
+    var length = todos.length
     var obj = {
+      id: length++,
       text: '', 
       completed: false,
       state: 'todo'
@@ -15,9 +17,10 @@ export default function TaskColumns() {
     setTodos([...todos, obj])
   }
 
-  const deleteTask = (index)=>{
-    const updatedTasks = todos.filter((_, i) => i !== index);
-    setTodos(updatedTasks)
+  const deleteTask = (id)=>{
+    console.log('id', id)
+    console.log('todo', todos)
+    setTodos(todos.filter(item => item.id !== id))
   }
   const sendText = (text,index) => {
     const tasks = [...todos]
@@ -43,8 +46,9 @@ export default function TaskColumns() {
         <div className="mt-5">
           {todos.map((item, index) => (
               <SingleTask
-                key={index}
+                key={item.id}
                 index={index}
+                id={item.id}
                 checked={item.completed}
                 state={item.state}
                 deleteTask={deleteTask}
