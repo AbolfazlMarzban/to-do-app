@@ -5,6 +5,7 @@ import SingleTask from "./singleTask";
 export default function TaskColumns() {
   const [todos, setTodos] = useState([])
   const [doings, setDoings] = useState([])
+  const [dones, setDones] = useState([])
   const [dragged, setDragged] = useState(null)
 
 
@@ -40,14 +41,18 @@ export default function TaskColumns() {
   }
 
   const getDropped = async (state, e) => {
+    e.stopPropagation()
+    e.preventDefault()
     const item = dragged
     if(item){
       console.log('state', state)
       console.log('item', item)
       item.state = state
-      await setDoings([...doings, item])
+      if(state == 'doing'){
+        await setDoings([...doings, item])
+      }
       await deleteTask(item.id)
-      await setDragged(null)
+      console.log('doiung', doings)
     }
   }
   return (
@@ -115,7 +120,7 @@ export default function TaskColumns() {
           </div>
         </div>
       </div>
-      <div className="basis-1/3 bg-doing rounded-xl m-2.5 p-5" onDrop={(e)=>getDropped('doing', e)}>
+      <div className="basis-1/3 bg-doing rounded-xl m-2.5 p-5" onDragOver={(e)=>draggedOver(e)} onDrop={(e)=>getDropped('doing', e)}>
         <div className="flex justify-between items-center">
           <label
             htmlFor=""
@@ -129,8 +134,7 @@ export default function TaskColumns() {
           </span>
         </div>
         <div className="mt-5" >
-          {doings.map((item, index) => 
-            {item && (
+          {doings.map((item, index) => (
               <div draggable onDragStart={()=>startDrag(item)}   key={item.id}>
               <SingleTask
                  key={item.id}
@@ -140,10 +144,10 @@ export default function TaskColumns() {
                  state={item.state}
                  deleteTask={deleteTask}
                  sendText={sendText}
+                 itemText={item.text}
            />
          </div>
-            )}
-
+          )
          )}
         </div>
         <div className="w-full flex items-center p-2.5">
@@ -174,7 +178,7 @@ export default function TaskColumns() {
           <span style={{ color: "#C2A25B" }}>New</span>
         </div>
       </div>
-      <div className="basis-1/3 bg-done rounded-xl m-2.5 p-5" onDrop={(e)=>getDropped('done', e)}>
+      <div className="basis-1/3 bg-done rounded-xl m-2.5 p-5" onDragOver={(e)=>draggedOver(e)} onDrop={(e)=>getDropped('done', e)}>
         <div className="flex justify-between items-center">
           <label
             htmlFor=""
@@ -184,7 +188,7 @@ export default function TaskColumns() {
             Done 🎉
           </label>
           <span className="text-xs" style={{ color: "#BCD7B6" }}>
-            {todos.length} Tasks
+            {dones.length} Tasks
           </span>
         </div>
       </div>

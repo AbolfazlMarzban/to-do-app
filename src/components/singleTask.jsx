@@ -7,10 +7,11 @@ export default function SingleTask({
   parentCallback,
   deleteTask,
   sendText,
-  id
+  id,
+  itemText
 }) {    
     const [hovered, setHovered] = useState(false)
-    const [text, setText] = useState('')
+    const [text, setText] = useState(itemText)
 
      const sendTextToParent = (text) => {
         setText(text)
