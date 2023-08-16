@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import { useReducer } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import SingleTask from "./singleTask";
 
 export default function TaskColumns() {
@@ -7,6 +7,24 @@ export default function TaskColumns() {
   const [doings, setDoings] = useState([]);
   const [dones, setDones] = useState([]);
   const [dragged, setDragged] = useState(null);
+
+  useLayoutEffect(()=>{
+    setTodos(JSON.parse(localStorage.getItem('todos')))
+    setDoings(JSON.parse(localStorage.getItem('doings')))
+    setDones(JSON.parse(localStorage.getItem('dones')))
+
+  }, [])
+
+  useEffect(()=>{
+    localStorage.setItem('todos', JSON.stringify(todos))
+  }, [todos])
+  useEffect(()=>{
+    localStorage.setItem('doings', JSON.stringify(doings))
+  }, [doings])
+  useEffect(()=>{
+    localStorage.setItem('dones', JSON.stringify(dones))
+  }, [dones])
+
 
   function newTask(state) {
     switch (state) {
@@ -82,7 +100,6 @@ export default function TaskColumns() {
     e.preventDefault();
     const item = dragged;
     const prevState = item.state;
-    console.log('item', item)
     if (item) {
       item.state = state;
       if(state == "todo"){
