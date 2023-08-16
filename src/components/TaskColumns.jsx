@@ -9,21 +9,50 @@ export default function TaskColumns() {
   const [dragged, setDragged] = useState(null)
 
 
-  function newTodo() {
-    var length = todos.length
-    var obj = {
-      id: length++,
-      text: '', 
-      completed: false,
-      state: 'todo'
-    };
-    setTodos([...todos, obj])
+  function newTask(state) {
+    switch(state){
+      case 'todo':
+            var length = todos.length
+        var obj = {
+          id: length++,
+          text: '', 
+          completed: false,
+          state: state
+        };
+        setTodos([...todos, obj])
+    break;
+    case 'doing':
+      var length = doings.length
+      var obj = {
+        id: length++,
+        text: '', 
+        completed: false,
+        state: state
+      };
+      setDoings([...doings, obj])
+    break;
+    case 'done':
+      var length = dones.length
+      var obj = {
+        id: length++,
+        text: '', 
+        completed: true,
+        state: state
+      };
+      setDones([...dones, obj])
+      break;
+      default:
+        return;
+    }
   }
 
-  const deleteTask = (id)=>{
-    console.log('id', id)
-    console.log('todo', todos)
-    setTodos(todos.filter(item => item.id !== id))
+  const deleteTask = (state, id)=>{
+    if(state == 'todo'){
+      setTodos(todos.filter(item => item.id !== id))
+    }
+    if(state == 'doing'){
+      setDoings(doings.filter(item => item.id !== id))
+    }
   }
   const sendText = (text,index) => {
     const tasks = [...todos]
@@ -45,14 +74,12 @@ export default function TaskColumns() {
     e.preventDefault()
     const item = dragged
     if(item){
-      console.log('state', state)
-      console.log('item', item)
       item.state = state
       if(state == 'doing'){
         await setDoings([...doings, item])
       }
+      console.log('item', item)
       await deleteTask(item.id)
-      console.log('doiung', doings)
     }
   }
   return (
@@ -90,7 +117,7 @@ export default function TaskColumns() {
         <div>
           <div
             className="w-full flex items-center p-2.5 cursor-pointer"
-            onClick={() => newTodo()}
+            onClick={() => newTask('todo')}
           >
             <svg
               className="mr-2.5"
@@ -150,7 +177,8 @@ export default function TaskColumns() {
           )
          )}
         </div>
-        <div className="w-full flex items-center p-2.5">
+        <div>
+        <div className="w-full flex items-center p-2.5" onClick={() => newTask('doing')}>
           <svg
             className="mr-2.5"
             xmlns="http://www.w3.org/2000/svg"
@@ -177,6 +205,8 @@ export default function TaskColumns() {
           </svg>
           <span style={{ color: "#C2A25B" }}>New</span>
         </div>
+        </div>
+        
       </div>
       <div className="basis-1/3 bg-done rounded-xl m-2.5 p-5" onDragOver={(e)=>draggedOver(e)} onDrop={(e)=>getDropped('done', e)}>
         <div className="flex justify-between items-center">
