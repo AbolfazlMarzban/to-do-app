@@ -8,15 +8,19 @@ export default function TaskColumns() {
     switch (action.type){
       case "Add":
         return [...state, action.object]
+      
       case "click":
         state.map((item, i) => {
+          console.log('i', i)
+          console.log('a i', action.i)
           if(i == action.i){
           return {...item, clicked: !item.clicked}
-          } else{
+          } else {
             return item
           }
         })
         console.log('state', state)
+
       default: 
       return state;
     }
@@ -35,8 +39,7 @@ export default function TaskColumns() {
   }
   function setClicked(i){
     console.log(i)
-    // dispatch({type: "clikc", i : i})
-    return true
+    dispatch({type: "click", i : i})
   }
   return (
     <div className="flex mt-12 h-full pb-16">
@@ -56,7 +59,9 @@ export default function TaskColumns() {
         <div className="mt-5">
 
         {todos.map((item,i) => (
-            <SingleTask key={i} onClick={() => setClicked(i)}  checked={item.checked} text={item.text} state={item.state} clicked={item.clicked} hovered={item.hovered}/>
+            <div key={i}  onClick={() => setClicked(i)}>
+              <SingleTask   checked={item.checked} text={item.text} state={item.state} clicked={item.clicked} hovered={item.hovered}/>
+            </div>
         ))}
         </div>
     
