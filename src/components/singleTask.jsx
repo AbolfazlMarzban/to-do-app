@@ -15,7 +15,7 @@ export default function SingleTask({
 
      const sendTextToParent = (text) => {
         setText(text)
-        sendText(text, index)
+        sendText(state, text, index)
     }
   return (
     <div className="w-full flex items-center p-3 min-h-max mb-3 taskbox justify-between"
