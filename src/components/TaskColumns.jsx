@@ -4,6 +4,8 @@ import SingleTask from "./singleTask";
 
 export default function TaskColumns() {
   const [todos, setTodos] = useState([])
+  const [doings, setDoings] = useState([])
+  const [dragged, setDragged] = useState(null)
 
 
   function newTodo() {
@@ -27,10 +29,30 @@ export default function TaskColumns() {
     tasks[index].text = text
     setTodos(tasks)
   }
+  const startDrag = (item) => {
+    console.log('dragged', item)
+    setDragged(item)
+  }
+  
+  const draggedOver = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+  }
 
+  const getDropped = async (state, e) => {
+    const item = dragged
+    if(item){
+      console.log('state', state)
+      console.log('item', item)
+      item.state = state
+      await setDoings([...doings, item])
+      await deleteTask(item.id)
+      await setDragged(null)
+    }
+  }
   return (
     <div className="flex mt-12 h-full pb-16">
-      <div className="basis-1/3 bg-todo rounded-xl m-2.5 p-5">
+      <div className="basis-1/3 bg-todo rounded-xl m-2.5 p-5" >
         <div className="flex justify-between items-center">
           <label
             htmlFor=""
@@ -43,8 +65,9 @@ export default function TaskColumns() {
             {todos.length} Tasks
           </span>
         </div>
-        <div className="mt-5">
+        <div className="mt-5" onDragOver={(e)=>draggedOver(e)} onDrop={(e)=>getDropped('todo', e)}>
           {todos.map((item, index) => (
+            <div draggable onDragStart={()=>startDrag(item)}   key={item.id} >
               <SingleTask
                 key={item.id}
                 index={index}
@@ -54,6 +77,8 @@ export default function TaskColumns() {
                 deleteTask={deleteTask}
                 sendText={sendText}
               />
+            </div>
+           
           ))}
         </div>
 
@@ -90,7 +115,7 @@ export default function TaskColumns() {
           </div>
         </div>
       </div>
-      <div className="basis-1/3 bg-doing rounded-xl m-2.5 p-5">
+      <div className="basis-1/3 bg-doing rounded-xl m-2.5 p-5" onDrop={(e)=>getDropped('doing', e)}>
         <div className="flex justify-between items-center">
           <label
             htmlFor=""
@@ -100,8 +125,26 @@ export default function TaskColumns() {
             Doing 💪
           </label>
           <span className="text-xs" style={{ color: "#DECCA4" }}>
-            {todos.length} Tasks
+            {doings.length} Tasks
           </span>
+        </div>
+        <div className="mt-5" >
+          {doings.map((item, index) => 
+            {item && (
+              <div draggable onDragStart={()=>startDrag(item)}   key={item.id}>
+              <SingleTask
+                 key={item.id}
+                 index={index}
+                 id={item.id}
+                 checked={item.completed}
+                 state={item.state}
+                 deleteTask={deleteTask}
+                 sendText={sendText}
+           />
+         </div>
+            )}
+
+         )}
         </div>
         <div className="w-full flex items-center p-2.5">
           <svg
@@ -131,7 +174,7 @@ export default function TaskColumns() {
           <span style={{ color: "#C2A25B" }}>New</span>
         </div>
       </div>
-      <div className="basis-1/3 bg-done rounded-xl m-2.5 p-5">
+      <div className="basis-1/3 bg-done rounded-xl m-2.5 p-5" onDrop={(e)=>getDropped('done', e)}>
         <div className="flex justify-between items-center">
           <label
             htmlFor=""
