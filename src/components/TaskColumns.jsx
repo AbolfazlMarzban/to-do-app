@@ -56,7 +56,7 @@ export default function TaskColumns() {
         <div className="mt-5">
 
         {todos.map((item,i) => (
-            <SingleTask key={i} onClick={setClicked(i)}  checked={item.checked} text={item.text} state={item.state} clicked={item.clicked} hovered={item.hovered}/>
+            <SingleTask key={i} onClick={() => setClicked(i)}  checked={item.checked} text={item.text} state={item.state} clicked={item.clicked} hovered={item.hovered}/>
         ))}
         </div>
     
