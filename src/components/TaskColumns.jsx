@@ -1,48 +1,26 @@
-import React from "react";
-import { useReducer } from "react";
+import React, { useState } from "react";
+// import { useReducer } from "react";
 import SingleTask from "./singleTask";
 
 export default function TaskColumns() {
-  // const [todo, setTodo] = useState([]);
-  const reducer = (state, action) => {
-    switch (action.type) {
-      case "Add":
-        return [...state, action.object];
-      case "addText":
-        state.map((item, i) => {
-          if(action.item){
-            if (i == action.item.index) {
-            var newItem = item;
-            newItem.text = action.item.text;
-            return { ...item, newItem };
-          } else {
-            return item;
-          }
-          }
-        });
-      default:
-        return state;
-    }
-  };
-  const [todos, dispatch] = useReducer(reducer, []);
+  const [todos, setTodos] = useState([])
+
 
   function newTodo() {
     var obj = {
-      checked: false,
-      text: "",
-      state: "todo",
-      clicked: false,
-      hovered: false,
+      text: '', 
+      completed: false,
+      state: 'todo'
     };
-    dispatch({ type: "Add", object: obj });
+    setTodos([...todos, obj])
   }
 
-  const handleCallback = (text, i) => {
-    dispatch({type: "addText", item:{
-      text: text,
-       index: i
-    }})
-  };
+  const deleteTask =(index)=>{
+    const updatedTasks = [...todos]
+     updatedTasks.splice(index, 1)
+    setTodos(updatedTasks)
+  }
+
   return (
     <div className="flex mt-12 h-full pb-16">
       <div className="basis-1/3 bg-todo rounded-xl m-2.5 p-5">
@@ -60,15 +38,14 @@ export default function TaskColumns() {
         </div>
         <div className="mt-5">
           {todos.map((item, i) => (
-            <div key={i}>
+            <div  key={i}>
               <SingleTask
-              index={i}
-                checked={item.checked}
+                index={i}
+                checked={item.completed}
                 text={item.text}
                 state={item.state}
-                clicked={item.clicked}
-                hovered={item.hovered}
-                parentCallback={(text, index) => handleCallback(text, index)}
+                deleteTask={deleteTask}
+
               />
             </div>
           ))}
