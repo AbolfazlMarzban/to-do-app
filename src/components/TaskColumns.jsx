@@ -4,43 +4,45 @@ import SingleTask from "./singleTask";
 
 export default function TaskColumns() {
   // const [todo, setTodo] = useState([]);
-  const reducer = (state, action) =>{
-    switch (action.type){
+  const reducer = (state, action) => {
+    switch (action.type) {
       case "Add":
-        return [...state, action.object]
-      
-      case "click":
+        return [...state, action.object];
+      case "addText":
         state.map((item, i) => {
-          console.log('i', i)
-          console.log('a i', action.i)
-          if(i == action.i){
-          return {...item, clicked: !item.clicked}
+          if(action.item){
+            if (i == action.item.index) {
+            var newItem = item;
+            newItem.text = action.item.text;
+            return { ...item, newItem };
           } else {
-            return item
+            return item;
           }
-        })
-        console.log('state', state)
-
-      default: 
-      return state;
+          }
+        });
+      default:
+        return state;
     }
-  }
-  const [todos, dispatch] = useReducer(reducer, [])
+  };
+  const [todos, dispatch] = useReducer(reducer, []);
 
-  function newTodo(){
+  function newTodo() {
     var obj = {
       checked: false,
-      text: '',
-      state: 'todo',
-      clicked: false, 
-      hovered: false
-    }
-    dispatch({type : "Add", object: obj})
+      text: "",
+      state: "todo",
+      clicked: false,
+      hovered: false,
+    };
+    dispatch({ type: "Add", object: obj });
   }
-  function setClicked(i){
-    console.log(i)
-    dispatch({type: "click", i : i})
-  }
+
+  const handleCallback = (text, i) => {
+    dispatch({type: "addText", item:{
+      text: text,
+       index: i
+    }})
+  };
   return (
     <div className="flex mt-12 h-full pb-16">
       <div className="basis-1/3 bg-todo rounded-xl m-2.5 p-5">
@@ -57,16 +59,26 @@ export default function TaskColumns() {
           </span>
         </div>
         <div className="mt-5">
-
-        {todos.map((item,i) => (
-            <div key={i}  onClick={() => setClicked(i)}>
-              <SingleTask   checked={item.checked} text={item.text} state={item.state} clicked={item.clicked} hovered={item.hovered}/>
+          {todos.map((item, i) => (
+            <div key={i}>
+              <SingleTask
+              index={i}
+                checked={item.checked}
+                text={item.text}
+                state={item.state}
+                clicked={item.clicked}
+                hovered={item.hovered}
+                parentCallback={(text, index) => handleCallback(text, index)}
+              />
             </div>
-        ))}
+          ))}
         </div>
-    
+
         <div>
-          <div className="w-full flex items-center p-2.5 cursor-pointer" onClick={() => newTodo()}>
+          <div
+            className="w-full flex items-center p-2.5 cursor-pointer"
+            onClick={() => newTodo()}
+          >
             <svg
               className="mr-2.5"
               xmlns="http://www.w3.org/2000/svg"

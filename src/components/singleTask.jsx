@@ -1,18 +1,24 @@
 import React from "react";
-
+import { useState } from "react";
 export default function SingleTask({
-  id,
+  index,
   checked,
   text,
   state,
   clicked,
   hovered,
+  parentCallback
 }) {
+    // const [input, setInput] = useState('')
+    function sendText(event){
+        parentCallback(event.target.value, index)
+    }
   return (
     <div className="w-full flex items-center p-3 min-h-max mb-3 taskbox">
       <input type="checkbox" className="w-4 h-4" value={checked} />
-      {!clicked && <span className="ml-2.5 text-xs font-semibold">{text}</span>}
-      {clicked && <input type="text" name="" id="" value={text} />}
+      {/* {!clicked && (<span className="ml-2.5 text-xs font-semibold">{text}</span>)} */}
+      {/* {clicked && (<input type="text" name="" id="" value={text} />)} */}      
+        <input type="text" onChange={(event) => sendText(event)} className="ml-2.5"/>
       {hovered && (
           <div>
           <svg
