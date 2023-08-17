@@ -86,6 +86,18 @@ export default function TaskColumns() {
       setDoings(taskss)
     }
   };
+  const sendCheck = (state, value, index) =>{
+    if(state == 'todo'){
+      const tasks = [...todos];
+      tasks[index].completed = value;
+      setTodos(tasks);
+    }
+    if(state == 'doing'){
+      const taskss = [...doings]
+      taskss[index].completed = value
+      setDoings(taskss)
+    }
+  }
   const startDrag = (item) => {
     setDragged(item);
   };
@@ -109,6 +121,7 @@ export default function TaskColumns() {
         await setDoings([...doings, item]);
       }
       if (state == "done") {
+        item.completed = true
         await setDones([...dones, item]);
       }
       await deleteTask(prevState, item.id);
@@ -147,6 +160,7 @@ export default function TaskColumns() {
                 state={item.state}
                 deleteTask={deleteTask}
                 sendText={sendText}
+                sendCheck={sendCheck}
               />
             </div>
           ))}
@@ -214,6 +228,7 @@ export default function TaskColumns() {
                 deleteTask={deleteTask}
                 sendText={sendText}
                 itemText={item.text}
+                sendCheck={sendCheck}
               />
             </div>
           ))}
@@ -280,6 +295,7 @@ export default function TaskColumns() {
                 deleteTask={deleteTask}
                 sendText={sendText}
                 itemText={item.text}
+                sendCheck={sendCheck}
               />
             </div>
           ))}
