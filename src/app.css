@@ -16,3 +16,8 @@ body{
     border: 1px solid #F3E1DF;
 
 }
+
+.dragging{
+    rotate: -3deg;
+    opacity: 1 !important;
+}

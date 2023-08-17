@@ -21,6 +21,7 @@ export default function SingleTask({
     <div className="w-full flex items-center p-3 min-h-max mb-3 taskbox justify-between"
      onMouseEnter={() => setHovered(true)}
      onMouseLeave={()=>setHovered(false)}
+     id={id}
      >
         <div>
         <input type="checkbox" className="w-4 h-4" value={checked} />    

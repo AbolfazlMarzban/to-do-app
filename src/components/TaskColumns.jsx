@@ -114,9 +114,12 @@ export default function TaskColumns() {
       await deleteTask(prevState, item.id);
     }
   };
+  const dragStyle = () =>{
+    const item = dragged
+  }
   return (
     <div className="flex mt-12 h-full pb-16">
-      <div className="basis-1/3 bg-todo rounded-xl m-2.5 p-5" onDragOver={(e) => draggedOver(e)} onDrop={(e) => getDropped("todo", e)}>
+      <div className="basis-1/3 bg-todo rounded-xl m-2.5 p-5" onDropCapture={()=>dragStyle()} onDragOver={(e) => draggedOver(e)} onDrop={(e) => getDropped("todo", e)}>
         <div className="flex justify-between items-center">
           <label
             htmlFor=""
