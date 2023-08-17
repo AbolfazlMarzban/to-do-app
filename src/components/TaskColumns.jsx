@@ -9,9 +9,15 @@ export default function TaskColumns() {
   const [dragged, setDragged] = useState(null);
 
   useLayoutEffect(()=>{
-    setTodos(JSON.parse(localStorage.getItem('todos')))
-    setDoings(JSON.parse(localStorage.getItem('doings')))
-    setDones(JSON.parse(localStorage.getItem('dones')))
+    if(JSON.parse(localStorage.getItem('todos'))){
+      setTodos(JSON.parse(localStorage.getItem('todos')))
+    }
+    if(JSON.parse(localStorage.getItem('doings'))){
+      setDoings(JSON.parse(localStorage.getItem('doings')))
+    }
+    if(JSON.parse(localStorage.getItem('dones'))){
+      setDones(JSON.parse(localStorage.getItem('dones')))
+    }
 
   }, [])
 
@@ -29,7 +35,7 @@ export default function TaskColumns() {
   function newTask(state) {
     switch (state) {
       case "todo":
-        var length = todos.length;
+        var length = todos?.length;
         var obj = {
           id: length++,
           text: "",
@@ -39,7 +45,7 @@ export default function TaskColumns() {
         setTodos([...todos, obj]);
         break;
       case "doing":
-        var length = doings.length;
+        var length = doings?.length;
         var obj = {
           id: length++,
           text: "",
@@ -49,7 +55,7 @@ export default function TaskColumns() {
         setDoings([...doings, obj]);
         break;
       case "done":
-        var length = dones.length;
+        var length = dones?.length;
         var obj = {
           id: length++,
           text: "",
@@ -184,14 +190,14 @@ export default function TaskColumns() {
             Todo
           </label>
           <span style={{ color: "#D4AFB4" }} className="text-xs">
-            {todos.length} Tasks
+            {todos?.length} Tasks
           </span>
         </div>
         <div
           className="mt-5"
    
         >
-          {todos.map((item, index) => (
+          {todos?.map((item, index) => (
             <div draggable onDragStart={() => startDrag(item)} key={item.id}>
               <SingleTask
                 key={item.id}
@@ -255,11 +261,11 @@ export default function TaskColumns() {
             Doing 💪
           </label>
           <span className="text-xs" style={{ color: "#DECCA4" }}>
-            {doings.length} Tasks
+            {doings?.length} Tasks
           </span>
         </div>
         <div className="mt-5">
-          {doings.map((item, index) => (
+          {doings?.map((item, index) => (
             <div draggable onDragStart={() => startDrag(item)} key={item.id}>
               <SingleTask
                 key={item.id}
@@ -322,11 +328,11 @@ export default function TaskColumns() {
             Done 🎉
           </label>
           <span className="text-xs" style={{ color: "#BCD7B6" }}>
-            {dones.length} Tasks
+            {dones?.length} Tasks
           </span>
         </div>
         <div className="mt-5">
-          {dones.map((item, index) => (
+          {dones?.map((item, index) => (
             <div draggable onDragStart={() => startDrag(item)} key={item.id}>
               <SingleTask
                 key={item.id}
