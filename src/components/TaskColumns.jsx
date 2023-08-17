@@ -75,16 +75,58 @@ export default function TaskColumns() {
     }
   };
   const sendText = (state, text, index) => {
-    if(state == 'todo'){
-      const tasks = [...todos];
-      tasks[index].text = text;
-      setTodos(tasks);
+    var texts =  text.split(' ')
+    if(texts.length > 0){
+      if(state == 'todo'){
+        const tasks = [...todos];
+        var length = tasks.length
+      for(var i=0; i < texts.length; i++){
+          if(i == 0 ){
+            tasks[index].text = texts[0];
+          } else {
+            tasks.push({
+              id: length+i,
+              text: texts[i],
+              completed: false,
+              state: state,
+            })
+          }
+        }
+                  setTodos(tasks);
+                  window. location. reload()
+      }
+      
+      if(state == 'doing'){
+        const taskss = [...doings]
+        var length = taskss.length
+        for(var i=0; i < texts.length; i++){
+          if(i == 0 ){
+            taskss[index].text = texts[0];
+          } else {
+            taskss.push({
+              id: length+i,
+              text: texts[i],
+              completed: false,
+              state: state,
+            })
+          }
+        }
+        setDoings(taskss)
+        window. location. reload()
+      }
+    } else {
+      if(state == 'todo'){
+        const tasks = [...todos];
+        tasks[index].text = text;
+        setTodos(tasks);
+      }
+      if(state == 'doing'){
+        const taskss = [...doings]
+        taskss[index].text = text
+        setDoings(taskss)
+      }
     }
-    if(state == 'doing'){
-      const taskss = [...doings]
-      taskss[index].text = text
-      setDoings(taskss)
-    }
+   
   };
   const sendCheck = (state, value, index) =>{
     if(state == 'todo'){
