@@ -39,7 +39,7 @@ export default function SingleTask({
         </div>
    
       {hovered && (
-          <div onClick={() => deleteTask(state, id)} className="cursor-pointer">
+          <div data-testid="delete-icon" onClick={() => deleteTask(state, id)} className="cursor-pointer">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="17"
