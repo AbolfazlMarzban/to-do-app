@@ -180,15 +180,15 @@ export default function TaskColumns() {
   }
   return (
     <div className="flex mt-12 h-full pb-16">
-      <div className="basis-1/3 bg-todo rounded-xl m-2.5 p-5" onDropCapture={()=>dragStyle()} onDragOver={(e) => draggedOver(e)} onDrop={(e) => getDropped("todo", e)}>
+      <div className="basis-1/3 bg-todo rounded-xl m-2.5 p-5" data-testid="Todo" onDropCapture={()=>dragStyle()} onDragOver={(e) => draggedOver(e)} onDrop={(e) => getDropped("todo", e)}>
         <div className="flex justify-between items-center">
-          <label
+          <h2
             htmlFor=""
             className="font-semibold"
             style={{ color: "#6E1E29" }}
           >
             Todo
-          </label>
+          </h2>
           <span style={{ color: "#D4AFB4" }} className="text-xs">
             {todos?.length} Tasks
           </span>
@@ -218,6 +218,7 @@ export default function TaskColumns() {
           <div
             className="w-full flex items-center p-2.5 cursor-pointer"
             onClick={() => newTask("todo")}
+            data-testid="newTodo"
           >
             <svg
               className="mr-2.5"
@@ -251,15 +252,16 @@ export default function TaskColumns() {
         className="basis-1/3 bg-doing rounded-xl m-2.5 p-5"
         onDragOver={(e) => draggedOver(e)}
         onDrop={(e) => getDropped("doing", e)}
+        data-testid="Doing"
       >
         <div className="flex justify-between items-center">
-          <label
+          <h2
             htmlFor=""
             className="font-semibold"
             style={{ color: "#795B19" }}
           >
             Doing 💪
-          </label>
+          </h2>
           <span className="text-xs" style={{ color: "#DECCA4" }}>
             {doings?.length} Tasks
           </span>
@@ -318,15 +320,16 @@ export default function TaskColumns() {
         className="basis-1/3 bg-done rounded-xl m-2.5 p-5"
         onDragOver={(e) => draggedOver(e)}
         onDrop={(e) => getDropped("done", e)}
+        data-testid="Done"
       >
         <div className="flex justify-between items-center">
-          <label
+          <h2
             htmlFor=""
             className="font-semibold"
             style={{ color: "#286C1A" }}
           >
             Done 🎉
-          </label>
+          </h2>
           <span className="text-xs" style={{ color: "#BCD7B6" }}>
             {dones?.length} Tasks
           </span>

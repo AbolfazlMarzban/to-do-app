@@ -10,9 +10,9 @@ describe("TaskColumns", () => {
   it("renders all task columns", () => {
     render(<TaskColumns />);
 
-    const todoColumn = screen.getByLabelText("Todo");
-    const doingColumn = screen.getByLabelText("Doing 💪");
-    const doneColumn = screen.getByLabelText("Done 🎉");
+    const todoColumn = screen.getByTestId("Todo");
+    const doingColumn = screen.getByTestId("Doing");
+    const doneColumn = screen.getByTestId("Done");
 
     expect(todoColumn).toBeInTheDocument();
     expect(doingColumn).toBeInTheDocument();
@@ -22,8 +22,8 @@ describe("TaskColumns", () => {
   it('adds a new task to "Todo" column', () => {
     render(<TaskColumns />);
 
-    const todoColumn = screen.getByLabelText("Todo");
-    const newTaskButton = screen.getByText("New");
+    const todoColumn = screen.getByTestId("Todo");
+    const newTaskButton = screen.getByTestId("newTodo");
 
     fireEvent.click(newTaskButton);
 
@@ -33,7 +33,7 @@ describe("TaskColumns", () => {
   it('moves a task from "Todo" to "Doing" column', () => {
     render(<TaskColumns />);
 
-    const newTaskButton = screen.getByText("New");
+    const newTaskButton = screen.getByTestId("newTodo");
 
     fireEvent.click(newTaskButton);
 

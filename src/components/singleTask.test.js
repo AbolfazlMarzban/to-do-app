@@ -27,7 +27,7 @@ describe("SingleTask", () => {
   });
 
   it("renders the task text", () => {
-    const taskText = screen.getByText("YourTaskText");
+    const taskText = screen.getByDisplayValue("YourTaskText");
     expect(taskText).toBeInTheDocument();
   });
 
