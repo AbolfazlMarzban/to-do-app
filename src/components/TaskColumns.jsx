@@ -76,7 +76,7 @@ export default function TaskColumns() {
   };
   const sendText = (state, text, index) => {
     var texts =  text.split(' ')
-    if(texts.length > 0){
+    if(texts.length > 1){
       if(state == 'todo'){
         const tasks = [...todos];
         var length = tasks.length
@@ -93,7 +93,7 @@ export default function TaskColumns() {
           }
         }
                   setTodos(tasks);
-                  window. location. reload()
+                  window.location.reload()
       }
       
       if(state == 'doing'){
@@ -112,7 +112,7 @@ export default function TaskColumns() {
           }
         }
         setDoings(taskss)
-        window. location. reload()
+        window.location.reload()
       }
     } else {
       if(state == 'todo'){
