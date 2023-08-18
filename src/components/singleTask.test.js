@@ -21,20 +21,20 @@ describe("SingleTask", () => {
         sendText={mockSendText}
         sendCheck={mockSendCheck}
         id={1}
-        itemText="Your Task Text"
+        itemText="YourTaskText"
       />
     );
   });
 
   it("renders the task text", () => {
-    const taskText = screen.getByText("YourTaskText");
+    const taskText = screen.getByDisplayValue("YourTaskText");
     expect(taskText).toBeInTheDocument();
   });
 
   it("updates task text when changed", () => {
-    const textInput = screen.getByText("YourTaskText");
+    const textInput = screen.getByDisplayValue("YourTaskText");
     fireEvent.change(textInput, { target: { value: "UpdatedTaskText" } });
-    expect(mockSendText).toHaveBeenCalledWith("UpdatedTaskText");
+    expect(mockSendText).toHaveBeenCalledWith("todo", "UpdatedTaskText", 0);
   });
 
   it("updates task completion state when checkbox is clicked", () => {

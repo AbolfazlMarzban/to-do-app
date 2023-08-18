@@ -32,7 +32,7 @@ export default function SingleTask({
         <div className="w-full">
         <input type="checkbox" className="w-4 h-4" checked={check} onChange={(event) => sendChecktoParent(event.target.checked)}/>    
         {!check && (
-          <input type="text" value={text} onChange={(event) => sendTextToParent(event.target.value)} className="ml-2.5" style={{'width': '90%'}}/>
+          <input type="text" name="taskinput" value={text} onChange={(event) => sendTextToParent(event.target.value)} className="ml-2.5" style={{'width': '90%'}}/>
         )}
         {check && (
           <span className="ml-2.5 line-through m-0">{text}</span>

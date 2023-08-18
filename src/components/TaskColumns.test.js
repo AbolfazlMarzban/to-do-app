@@ -3,7 +3,12 @@
  */
 import "@testing-library/jest-dom";
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import {
+  render,
+  screen,
+  fireEvent,
+  queryByAttribute,
+} from "@testing-library/react";
 import TaskColumns from "./TaskColumns";
 
 describe("TaskColumns", () => {
@@ -37,20 +42,18 @@ describe("TaskColumns", () => {
 
     fireEvent.click(newTaskButton);
 
-    const todoTask = screen.getByText("YourTaskText"); // Replace with the actual text you expect
+    const todoTask = screen.getByTestId("item-0");
 
     fireEvent.dragStart(todoTask);
 
-    const doingColumn = screen.getByLabelText("Doing 💪");
+    const doingColumn = screen.getByTestId("Doing");
     fireEvent.dragOver(doingColumn);
     fireEvent.drop(doingColumn);
 
-    const todoColumn = screen.getByLabelText("Todo");
-    const doingColumnAfterDrop = screen.getByLabelText("Doing 💪");
+    const todoColumn = screen.getByTestId("todo-length");
+    const doingColumnAfterDrop = screen.getByTestId("doing-length");
 
-    expect(todoColumn).toHaveTextContent("0 Tasks");
+    expect(todoColumn).toHaveTextContent("2 Tasks");
     expect(doingColumnAfterDrop).toHaveTextContent("1 Tasks");
   });
-
-  // Add more test cases for other interactions and behaviors
 });

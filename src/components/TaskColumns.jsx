@@ -189,7 +189,7 @@ export default function TaskColumns() {
           >
             Todo
           </h2>
-          <span style={{ color: "#D4AFB4" }} className="text-xs">
+          <span style={{ color: "#D4AFB4" }} className="text-xs" data-testid="todo-length">
             {todos?.length} Tasks
           </span>
         </div>
@@ -198,7 +198,7 @@ export default function TaskColumns() {
    
         >
           {todos?.map((item, index) => (
-            <div draggable onDragStart={() => startDrag(item)} key={item.id}>
+            <div draggable data-testid={`item-${item.id}`} onDragStart={() => startDrag(item)} key={item.id}>
               <SingleTask
                 key={item.id}
                 index={index}
@@ -262,7 +262,7 @@ export default function TaskColumns() {
           >
             Doing 💪
           </h2>
-          <span className="text-xs" style={{ color: "#DECCA4" }}>
+          <span className="text-xs" style={{ color: "#DECCA4" }} data-testid="doing-length">
             {doings?.length} Tasks
           </span>
         </div>
