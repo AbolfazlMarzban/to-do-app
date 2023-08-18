@@ -81,7 +81,7 @@ export default function TaskColumns() {
     }
   };
   const sendText = (state, text, index) => {
-    var texts =  text.split(' ')
+    var texts =  text.split('\n')
     if(texts.length > 1){
       if(state == 'todo'){
         const tasks = [...todos];

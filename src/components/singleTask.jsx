@@ -27,6 +27,7 @@ export default function SingleTask({
      onMouseEnter={() => setHovered(true)}
      onMouseLeave={()=>setHovered(false)}
      id={id}
+     data-testid="task-box"
      >
         <div className="w-full">
         <input type="checkbox" className="w-4 h-4" checked={check} onChange={(event) => sendChecktoParent(event.target.checked)}/>    

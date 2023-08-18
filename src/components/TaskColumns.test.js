@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-
+import "@testing-library/jest-dom";
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import TaskColumns from "./TaskColumns";
@@ -37,7 +37,7 @@ describe("TaskColumns", () => {
 
     fireEvent.click(newTaskButton);
 
-    const todoTask = screen.getByText("Your Task Text"); // Replace with the actual text you expect
+    const todoTask = screen.getByText("YourTaskText"); // Replace with the actual text you expect
 
     fireEvent.dragStart(todoTask);
 
